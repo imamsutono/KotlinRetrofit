@@ -25,10 +25,18 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Model>, response: Response<Model>) {
                 if(response?.code() === 200) {
                     val convResponse = response?.body()
-                    Log.e("response: ", convResponse?.message)
+                    val datas: MutableList<Data> = mutableListOf()
+                    convResponse?.data?.let { datas.addAll(it) }
+                    showData(datas)
                 }
             }
 
         })
+    }
+
+    fun showData(data: MutableList<Data>) {
+        for (i in 0 until data.size) {
+            Log.e("response", data.get(i).nama)
+        }
     }
 }
